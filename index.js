@@ -33,12 +33,12 @@ const generateTaskCard = ({ id, url, title, type, description }) => {
             </div>
             <img src="${url}" class="card-img-top" alt="image" />
             <div class="card-body">
-                <h5 class="card-title">${title}</h5>
-                <p class="card-text">${description}</p>
-                <span class="badge bg-primary">${type}</span>
+                <h5 class="card-title" id="cardtitle">${title}</h5>
+                <p class="card-text" id="cardtext">${description}</p>
+                <span class="badge bg-primary" id="cardtpye">${type}</span>
             </div>
             <div class="card-footer">
-                <button class="btn btn-outline-primary float-end">OPEN TASK</button>
+                <button class="btn btn-outline-primary float-end" name=${id}>OPEN TASK</button>
             </div>
         </div>
     </div>`)
@@ -63,7 +63,7 @@ const reloadTaskCard = () => {
 const deleteTask = (e) => {
     // console.log(e);
     const targetID = e.getAttribute("name"); //it extract id of that perticular card
-    console.log(targetID);
+    // console.log(targetID);
     globalTaskData = globalTaskData.filter((cardData) => cardData.id !== targetID);
     //it remove tha data where id equals to targetId and rest other will show
     console.log(globalTaskData);
@@ -73,7 +73,34 @@ const deleteTask = (e) => {
 
 const update = (e) => {
     const targetID = e.getAttribute("name");
-    console.log(targetID);
+    // console.log(e);
+    // console.log(e.parentNode);
+    // console.log(e.parentNode.parentNode.parentNode.childNodes);
+    e.parentNode.parentNode.parentNode.childNodes[5].childNodes[1].setAttribute("contenteditable", "true")
+    e.parentNode.parentNode.parentNode.childNodes[5].childNodes[3].setAttribute("contenteditable", "true")
+    e.parentNode.parentNode.parentNode.childNodes[5].childNodes[5].setAttribute("contenteditable", "true")
+
+    e.parentNode.parentNode.parentNode.childNodes[7].childNodes[1].innerHTML = "SAVE CHANGES"
+    e.parentNode.parentNode.parentNode.childNodes[7].childNodes[1].setAttribute("onclick", "saveTask(this)")
+
+}
+
+const saveTask = (e) => {
+    const targetID = e.getAttribute("name");
+    // console.log(e.parentNode.parentNode.childNodes[5].childNodes[1]);
+    // console.log(e.parentNode.parentNode.childNodes[5].childNodes[3]);
+    // console.log(e.parentNode.parentNode.childNodes[5].childNodes[5]);
+
+    globalTaskData.forEach(tasks => {
+        // console.log(tasks)
+        if (tasks["id"] === targetID) {
+            tasks["title"] = e.parentNode.parentNode.childNodes[5].childNodes[1].outerText;
+            tasks["type"] = e.parentNode.parentNode.childNodes[5].childNodes[3].outerText;
+            tasks["description"] = e.parentNode.parentNode.childNodes[5].childNodes[5].outerText;
+        }
+        // console.log(tasks)
+    });
+
     saveToLocalStorage();
     window.location.reload();
 }
