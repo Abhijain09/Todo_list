@@ -38,7 +38,7 @@ const generateTaskCard = ({ id, url, title, type, description }) => {
                 <span class="badge bg-primary" id="cardtpye">${type}</span>
             </div>
             <div class="card-footer">
-                <button class="btn btn-outline-primary float-end" name=${id} data-bs-toggle="modal" data-bs-target="#staticBackdrop"  >OPEN TASK</button>
+                <button class="btn btn-outline-primary float-end" name=${id} data-bs-toggle="modal" data-bs-target="#viewCardModal" onclick="openTask(this)" >OPEN TASK</button>
             </div>
         </div>
     </div>`)
@@ -103,4 +103,11 @@ const saveTask = (e) => {
 
     saveToLocalStorage();
     window.location.reload();
+}
+
+const openTask = (e) => {
+    const targetID = document.getElementById("viewBody");
+    targetID.innerHTML = "<b>Title:</b> " + e.parentNode.parentNode.childNodes[5].childNodes[1].outerText + "<br><br>" +
+        "<b>Type: </b><i>" + e.parentNode.parentNode.childNodes[5].childNodes[5].outerText + "</i> <br><br>" +
+        "<b>Description: </b>" + e.parentNode.parentNode.childNodes[5].childNodes[3].outerText;
 }
