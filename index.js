@@ -24,7 +24,7 @@ const generateTaskCard = ({ id, url, title, type, description }) => {
             <div class="card-header">
                 <div class="d-flex justify-content-end">
                     <button type="button" class="btn btn-outline-info" name=${id} onclick="update(this)">
-                        <i class="fas fa-pencil-alt" name=${id} onclick="update(this)"></i>
+                        <i class="fas fa-pencil-alt" ></i>
                     </button>
                     <button type="button" class="btn btn-outline-danger" name=${id} onclick="deleteTask(this)">
                         <i class="far fa-trash-alt" name=${id} onclick="deleteTask(this)" ></i>
@@ -38,7 +38,7 @@ const generateTaskCard = ({ id, url, title, type, description }) => {
                 <span class="badge bg-primary" id="cardtpye">${type}</span>
             </div>
             <div class="card-footer">
-                <button class="btn btn-outline-primary float-end" name=${id}>OPEN TASK</button>
+                <button class="btn btn-outline-primary float-end" name=${id} data-bs-toggle="modal" data-bs-target="#staticBackdrop"  >OPEN TASK</button>
             </div>
         </div>
     </div>`)
